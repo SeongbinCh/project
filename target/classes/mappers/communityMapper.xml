@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.care.project.community.board.Mybatis.BoardMapper">
+ 	<resultMap type="com.care.project.community.board.DTO.BoardDTO" id="board">
+ 		<id property="write_no" column="write_no" />
+ 		<result property="id" column="id" />
+ 		<result property="title" column="title" />
+ 		<result property="content" column="content" />
+ 		<result property="hit" column="hit" />
+ 		<result property="saveDate" column="saveDate" />
+ 		<result property="imageFileName" column="image_file_name" />
+ 		
+ 	</resultMap>
+ 	
+ 	<resultMap type="com.care.project.community.board.DTO.BoardRepDTO" id="reply">
+ 		<result property="id" column="id" />
+ 		<result property="content" column="content" />
+ 		<result property="write_group" column="write_group" />
+ 		<result property="write_date" column="write_date" />
+ 	</resultMap>
+ 	
+ 	<select id="boardList" resultMap="board">
+ 		select B.* from(select rownum rn, A.* from
+ 		(select * from community_board order by write_no desc)A)B 
+ 								where rn between #{s} and #{e}
+ 	</select>
+ 	
+ 	<select id="selectBoardCount" resultType="Integer">
+ 		select count(*) from community_board
+ 	</select>
+ 	
+ 	<insert id="writeSave">
+ 		insert into community_board(write_no, id, title, content, image_file_name)
+ 		values(community_board_SEQ.nextval, #{id}, #{title}, #{content}, #{imageFileName})
+ 	</insert>
+ 	
+ 	<select id="getContent" resultMap="board">
+ 		select * from community_board where write_no=#{write_no}
+ 	</select>
+ 	
+ 	<update id="modify">
+ 		update community_board set title=#{title}, content=#{content},
+ 			image_file_name=#{imageFileName} where write_no=#{write_no}
+ 	</update>
+ 	
+ 	<delete id="delete">
+ 		delete from community_board where write_no=#{write_no}
+ 	</delete>
+ 	
+ 	<update id="upHit">
+ 		update community_board set hit=hit+1 where write_no=#{write_no}
+ 	</update>
+ 	
+ 	<select id="replyList" resultMap="reply">
+ 		select B.* 
+ 		from(
+ 			select rownum rn, A.* 
+ 			from
+ 			(
+ 				select * 
+ 				from reply 
+ 				where write_group = #{write_group} 
+ 				order by write_date desc
+ 				)A
+ 			)B
+ 		where rn between #{s} and #{e}
+ 	</select>
+ 	
+ 	<insert id="addReply" parameterType="BoardRepDTO">
+        insert into reply(id, content, write_group)
+		values( #{id}, #{content}, #{write_group} )
+    </insert>
+
+ 	
+ 	<select id="getRepCount" resultType="int">
+   		select count(*)
+   		from reply
+   		where write_group = #{write_group}
+	</select>
+	
+	<update id="modifyReply">
+		update reply
+		set content = #{content}
+		where reply_no = #{reply_no}
+	</update>
+	
+	<delete id="deleteReply">
+		delete from reply
+		where reply_no = #{reply_no}
+	</delete>
+ </mapper>
