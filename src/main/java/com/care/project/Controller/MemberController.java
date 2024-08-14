@@ -64,7 +64,7 @@ public class MemberController {
 		}
 		session.setAttribute(LoginSession.LOGIN, id);
 		
-		rs.addAttribute("loginSuccess" ,"로그인하였습니다");
+		
 	    rs.addAttribute("id", id);
 	    rs.addAttribute("autoLogin", autoLogin);
 	    
@@ -73,20 +73,25 @@ public class MemberController {
 	//로그인 성공시 실행할 메서드
 	@GetMapping("successLogin")
 	public String successLogin( @RequestParam String id, @RequestParam String autoLogin,
-								HttpSession session, HttpServletResponse res) {
+								HttpSession session, HttpServletResponse res,
+								RedirectAttributes rs) {
 		String prevPage = (String) session.getAttribute("prevPage");
-		System.out.println("prevPage : " + prevPage);
+		System.out.println("successLogin prevPage : " + prevPage);
+		
+		rs.addFlashAttribute("loginMsg", "로그인하였습니다");
+		
 		if (prevPage != null) {
             session.removeAttribute("prevPage");
             return "redirect:" + prevPage;
         }
-		return "main";
+		return "redirect:main";
 	}
 	//로그아웃 메서드
 	@GetMapping("logout")
 	public String logout(HttpSession session,
 						@CookieValue(value="loginCookie", required = false) Cookie cookie,
-						HttpServletResponse res, HttpServletRequest req) {
+						HttpServletResponse res, HttpServletRequest req,
+						RedirectAttributes rs) {
 		//이전 페이지 값을 referer에 저장
 		String referer = req.getHeader("Referer");
 		System.out.println("referer : " + referer);
@@ -105,6 +110,8 @@ public class MemberController {
 		System.out.println("prevPage : " + prevPage);
 		//세션 무효화
 		session.invalidate();
+		
+		rs.addFlashAttribute("logoutMsg", "로그아웃하였습니다");
 		
 		if( prevPage != null ) {
 			return "redirect:" + prevPage;

@@ -22,6 +22,14 @@
 	         document.getElementById("searchForm").submit();
 	    }
 	}
+	const loginMsg = "${ loginMsg }";
+	if( loginMsg ){
+		alert( loginMsg );
+	}
+	const logoutMsg = "${ logoutMsg }";
+	if( logoutMsg ){
+		alert( logoutMsg );
+	}
 </script>
 <style type="text/css">
 	body {
