@@ -76,7 +76,6 @@ public class MemberController {
 								HttpSession session, HttpServletResponse res,
 								RedirectAttributes rs) {
 		String prevPage = (String) session.getAttribute("prevPage");
-		System.out.println("successLogin prevPage : " + prevPage);
 		
 		rs.addFlashAttribute("loginMsg", "로그인하였습니다");
 		
@@ -107,7 +106,6 @@ public class MemberController {
 		}
 		//세션에 있는 prevPage값을 변수에 저장
 		String prevPage = (String)req.getSession().getAttribute("prevPage");
-		System.out.println("prevPage : " + prevPage);
 		//세션 무효화
 		session.invalidate();
 		
@@ -126,12 +124,6 @@ public class MemberController {
 	//회원가입 메서드
 	@RequestMapping("register")
 	public String register(MemberDTO dto) {
-		System.out.println("--------dto---------");
-		System.out.println(dto.getId());
-		System.out.println(dto.getPwd());
-		System.out.println(dto.getAddr1());
-		System.out.println(dto.getAddr2());
-		System.out.println(dto.getAddr3());
 		int result = ms.register( dto );
 		if( result == 1 ) {
 			return "redirect:login";

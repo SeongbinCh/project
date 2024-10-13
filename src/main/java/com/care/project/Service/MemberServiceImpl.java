@@ -39,4 +39,31 @@ public class MemberServiceImpl implements MemberService{
 			return 0;
 		}
 	}
+	
+	public void saveNaverUser( String naverId, String name, String email, String mobile) {
+		String id = naverId;
+		MemberDTO naverMember = mapper.getUserByNaverId(naverId);
+		
+		if( naverMember == null ) {
+			naverMember = new MemberDTO();
+			naverMember.setId(id);
+			naverMember.setNaverId(naverId);
+			naverMember.setName(name);
+			naverMember.setEmail(email);
+			naverMember.setMobile(mobile);
+			
+			System.out.println(id);
+			System.out.println(naverId);
+			System.out.println(name);
+			System.out.println(email);
+			System.out.println(mobile);
+			
+			int result= mapper.registerNaverId(naverMember);
+			if( result > 0 ) {
+				System.out.println("네이버 사용자 정보가 등록되었습니다");
+			} else {
+				System.out.println("네이버 사용자 정보 등록이 실패하였습니다");
+			}
+		}
+	}
 }

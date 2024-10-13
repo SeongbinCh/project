@@ -69,6 +69,10 @@
 					<input type="text" name="name" class="form-control" style="width: 300px;" placeholder="이름" required="required">
 				</div>
 				<div class="form-group">
+					<label for="mobile" class="form-label">전화번호</label> 
+					<input type="text" name="mobile" class="form-control" style="width: 300px;" placeholder="전화번호" required="required">
+				</div>
+				<div class="form-group">
 					<label for="id" class="form-label">아이디</label> 
 					<input type="text" name="id" class="form-control" style="width: 300px;" placeholder="아이디" required="required">
 				</div>

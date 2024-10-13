@@ -1,7 +1,7 @@
 package com.care.project.DTO;
 
 public class MemberDTO {
-	private String name, id, pwd, email, addr1, addr2, addr3;
+	private String name, mobile, id, pwd, email, addr1, addr2, addr3, naverId;
 
 	public String getName() {
 		return name;
@@ -9,6 +9,22 @@ public class MemberDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getNaverId() {
+		return naverId;
+	}
+
+	public void setNaverId(String naverId) {
+		this.naverId = naverId;
 	}
 
 	public String getId() {

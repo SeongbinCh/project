@@ -62,18 +62,21 @@
 		color: white;
     }
 </style>
-<script type="text/javascript">
-    window.onload = function(){
-        var loginError = "${loginError}";
-        if(loginError) {
-            alert(loginError);
-        }
-    }
-</script>
+
 </head>
 <body>
     <%@ include file="../default/header.jsp" %>
-
+	<%
+	    String clientId = "fCdwoV6CXprVdA34988p";//애플리케이션 클라이언트 아이디값";
+	    String redirectURI = URLEncoder.encode("http://localhost:8080/project/member/main", "UTF-8");
+	    SecureRandom random = new SecureRandom();
+	    String state = new BigInteger(130, random).toString();
+	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+	         + "&client_id=" + clientId
+	         + "&redirect_uri=" + redirectURI
+	         + "&state=" + state;
+	    session.setAttribute("state", state);
+ 	%>
     <div class="box1">
         <div class="loginForm">
             <form action="login_chk" method="post" class="formclass">
@@ -89,8 +92,12 @@
                     <button type="submit" class="form-submit">로그인</button>
                     <button type="button" onclick="history.back()" class="form-submit">취소</button>
                 </div>
+                <div id="naver_id_login">
+                	<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+                </div>
             </form>
         </div>
     </div>
 </body>
+
 </html>

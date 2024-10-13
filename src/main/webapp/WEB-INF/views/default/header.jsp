@@ -81,11 +81,11 @@
 		
 		<nav class="headerNav">
 			<ul class="headerUl">
-				<c:if test="${login != null }">
+				<c:if test="${ not empty sessionScope.login }">
 					<li><a href="${ contextPath }/mypage">내 정보</a>
 					<li><a href="${ contextPath }/member/logout">로그아웃</a></li>
 				</c:if>
-				<c:if test="${login == null }">
+				<c:if test="${ empty sessionScope.login }">
 					<li><a href="${ contextPath }/member/login">로그인</a></li>
 					<li><a href="${ contextPath }/member/membership">회원가입</a></li>
 				</c:if>

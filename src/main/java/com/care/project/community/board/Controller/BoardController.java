@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -56,20 +55,14 @@ public class BoardController {
 			@RequestParam(required = false) MultipartFile image_file_name,
 			HttpServletResponse res) throws IOException {
 	    if (dto == null) {
-	        System.out.println("BoardDTO is null");
 	        res.sendError(HttpServletResponse.SC_BAD_REQUEST, "BoardDTO is null");
 	        return;
 	    }
 	    if (image_file_name == null) {
-	        System.out.println("image_file_name is null");
 	        res.sendError(HttpServletResponse.SC_BAD_REQUEST, "image_file_name is null");
 	        return;
 	    }
 
-		System.out.println( dto.getId() );
-		System.out.println( dto.getTitle() );
-		System.out.println( dto.getContent() );
-		System.out.println( image_file_name.getOriginalFilename() );
 		String msg = bs.writeSave( dto, image_file_name );
 		
 		res.setContentType("text/html; charset=utf-8");

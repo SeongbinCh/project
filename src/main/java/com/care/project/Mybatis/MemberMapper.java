@@ -10,4 +10,6 @@ public interface MemberMapper {
 	public int register( MemberDTO member );
 	public MemberDTO getContent( String id );
 	public int modify( MemberDTO dto );
+	public MemberDTO getUserByNaverId( String naverId );
+	public int registerNaverId( MemberDTO dto );
 }
